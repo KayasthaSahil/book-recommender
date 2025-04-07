@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Popular Books - Book Recommender{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <h1>Discover Your Next Favorite Book</h1>
+        <p>Explore our collection of popular books and get personalized recommendations based on your interests.</p>
+    </div>
+</section>
+
+<section class="popular-books">
+    <h2>Popular Books</h2>
+    <div class="books-grid">
+        {% for title, author, image, votes, rating in popular_books %}
+        <div class="card book-card">
+            <img src="{{ image }}" alt="{{ title }}" onerror="this.src='https://via.placeholder.com/300x400?text=No+Image'">
+            <h3>{{ title }}</h3>
+            <p>{{ author }}</p>
+            <div class="rating">★ {{ "%.1f"|format(rating) }}</div>
+            <div class="votes">{{ votes }} ratings</div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %} 

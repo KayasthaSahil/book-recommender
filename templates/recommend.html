@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Get Recommendations - Book Recommender{% endblock %}
+
+{% block content %}
+<section class="search-section">
+    <div class="container">
+        <h1>Find Book Recommendations</h1>
+        <p>Enter a book title to get personalized recommendations</p>
+        
+        <form action="/recommend" method="POST" class="search-container">
+            <input type="text" 
+                   name="book_name" 
+                   class="search-input" 
+                   placeholder="Start typing a book title..."
+                   autocomplete="off"
+                   required>
+            <div class="search-results"></div>
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/search.js') }}"></script>
+{% endblock %} 
