@@ -54,43 +54,44 @@ def search():
         print(f"Error in search: {e}")
         return jsonify([])
 
-@app.route('/recommend', methods=['GET', 'POST'])
-def recommend():
-    if request.method == 'GET':
-        return render_template('recommend.html')
-        
+@app.route('/recommend')
+def recommend_form():
+    return render_template('recommend.html')
+
+@app.route('/recommendations', methods=['POST'])
+def get_recommendations():
     book_name = request.form.get('book_name')
     if not book_name:
-        return render_template('error.html', 
-                             message="Please enter a book title")
+        return render_template('error.html', message="Please enter a book title")
     
     try:
         # Find the index of the book
-        index = np.where(pt.index == book_name)[0][0]
+        index_list = np.where(pt.index == book_name)[0]
+        if not index_list.any():
+            return render_template('error.html', message="Book not found in our database. Please try another book.")
+        
+        index = index_list[0]
         # Get similar items
         similar_items = sorted(list(enumerate(similarity_scores[index])), 
-                             key=lambda x: x[1], reverse=True)[1:6]
+                               key=lambda x: x[1], reverse=True)[1:6]
 
         recommendations = []
         for i in similar_items:
             temp_df = books[books['Book-Title'] == pt.index[i[0]]]
-            book_data = temp_df.drop_duplicates('Book-Title').iloc[0]
-            recommendations.append({
-                'title': book_data['Book-Title'],
-                'author': book_data['Book-Author'],
-                'image': book_data['Image-URL-M']
-            })
+            if not temp_df.empty:
+                book_data = temp_df.drop_duplicates('Book-Title').iloc[0]
+                recommendations.append({
+                    'title': book_data['Book-Title'],
+                    'author': book_data['Book-Author'],
+                    'image': book_data['Image-URL-M']
+                })
         
         return render_template('recommendations.html', 
                              recommendations=recommendations,
                              selected_book=book_name)
-    except IndexError:
-        return render_template('error.html', 
-                             message="Book not found in our database. Please try another book.")
     except Exception as e:
         print(f"Error in recommendations: {e}")
-        return render_template('error.html', 
-                             message="An error occurred while getting recommendations. Please try again.")
+        return render_template('error.html', message="An error occurred while getting recommendations. Please try again.")
 
 @app.errorhandler(404)
 def page_not_found(e):

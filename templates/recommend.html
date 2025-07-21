@@ -5,16 +5,17 @@
 {% block content %}
 <section class="search-section">
     <div class="container">
-        <h1>Find Book Recommendations</h1>
-        <p>Enter a book title to get personalized recommendations</p>
+        <h1>Find Your Next Read</h1>
+        <p>Enter a book you love, and we'll suggest what to read next.</p>
         
-        <form action="/recommend" method="POST" class="search-container">
+        <form action="/recommendations" method="POST" class="search-form">
             <input type="text" 
                    name="book_name" 
                    class="search-input" 
-                   placeholder="Start typing a book title..."
+                   placeholder="e.g., 'To Kill a Mockingbird'"
                    autocomplete="off"
                    required>
+            <button type="submit" class="search-button">Recommend</button>
             <div class="search-results"></div>
         </form>
     </div>

@@ -14,12 +14,14 @@
     <h2>Popular Books</h2>
     <div class="books-grid">
         {% for title, author, image, votes, rating in popular_books %}
-        <div class="card book-card">
+        <div class="book-card">
             <img src="{{ image }}" alt="{{ title }}" onerror="this.src='https://via.placeholder.com/300x400?text=No+Image'">
-            <h3>{{ title }}</h3>
-            <p>{{ author }}</p>
-            <div class="rating">★ {{ "%.1f"|format(rating) }}</div>
-            <div class="votes">{{ votes }} ratings</div>
+            <div class="book-card-content">
+                <h3>{{ title }}</h3>
+                <p>{{ author }}</p>
+                <div class="rating">★ {{ "%.1f"|format(rating) }}</div>
+                <div class="votes">{{ votes }} ratings</div>
+            </div>
         </div>
         {% endfor %}
     </div>
