@@ -342,6 +342,54 @@ footer {
   color: var(--light-text-color);
 }
 
+/* Footer */
+.site-footer {
+  background: var(--primary-color);
+  color: var(--white);
+  padding: 2rem 0;
+  margin-top: auto;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-info,
+.footer-socials {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.developer-name {
+  font-weight: 600;
+}
+
+.copyright {
+  opacity: 0.8;
+}
+
+.social-link {
+  color: var(--white);
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.social-link:hover {
+  color: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
 @media (max-width: 480px) {
   .books-grid {
     grid-template-columns: 1fr;
