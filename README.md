@@ -1,13 +1,13 @@
-# Book Recommendation System
+# LiteraryLens
 
 ## Live Demo
-🌐 **Deployed Application**: [Book Recommender](https://book-recommender-ndy7.onrender.com)
+🌐 **Deployed Application**: [LiteraryLens](https://book-recommender-ndy7.onrender.com)
 
 ## Problem Statement
 In today's digital age, readers face an overwhelming number of book choices, making it difficult to find books that match their interests and preferences. Traditional methods of book discovery often rely on manual browsing or generic bestseller lists, which may not cater to individual reader preferences. This project addresses the challenge of helping readers discover books that align with their interests through an intelligent recommendation system.
 
 ## Solution Proposed
-This project implements a hybrid book recommendation system that combines two approaches:
+LiteraryLens implements a hybrid book recommendation system that combines two approaches:
 1. **Popularity-Based Filtering**: Identifies and recommends books based on their overall popularity, considering both the number of ratings and average ratings.
 2. **Collaborative Filtering**: Provides personalized recommendations by analyzing user behavior patterns and finding similar books based on user ratings.
 
@@ -258,7 +258,7 @@ Runtime performance is monitored through:
 ```
 
 ## Conclusion
-This book recommendation system successfully implements both popularity-based and collaborative filtering approaches to provide users with relevant book recommendations. The hybrid approach ensures that users receive both trending books and personalized suggestions based on their interests. The system's modular architecture allows for easy maintenance and future enhancements.
+LiteraryLens successfully implements both popularity-based and collaborative filtering approaches to provide users with relevant book recommendations. The hybrid approach ensures that users receive both trending books and personalized suggestions based on their interests. The system's modular architecture allows for easy maintenance and future enhancements.
 
 ## Future Enhancements
 1. Implement content-based filtering
@@ -270,8 +270,8 @@ This book recommendation system successfully implements both popularity-based an
 ## Installation and Setup
 1. Clone the repository
 ```bash
-git clone https://github.com/KayasthaSahil/book-recommender.git
-cd book-recommender
+git clone https://github.com/KayasthaSahil/literarylens.git
+cd literarylens
 ```
 
 2. Install dependencies
