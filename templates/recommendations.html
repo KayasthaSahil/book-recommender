@@ -75,14 +75,24 @@
         <h3>{{ selected_book }}</h3>
     </div>
     <h2>You might also like:</h2>
+    {% if source == 'llm' %}
+    <p><em>AI-Generated Recommendations</em></p>
+    {% endif %}
 </div>
 
 <div class="recommendations-grid">
     {% for book in recommendations %}
     <div class="card book-card">
+        {% if book.image %}
         <img src="{{ book.image }}" alt="{{ book.title }}" onerror="this.src='https://via.placeholder.com/300x400?text=No+Image'">
+        {% else %}
+        <img src="https://via.placeholder.com/300x400?text=No+Image" alt="{{ book.title }}">
+        {% endif %}
         <h3>{{ book.title }}</h3>
         <p>{{ book.author }}</p>
+        {% if book.description %}
+        <p>{{ book.description }}</p>
+        {% endif %}
     </div>
     {% endfor %}
 </div>

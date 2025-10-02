@@ -3,9 +3,14 @@ import pickle
 import numpy as np
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+from controllers.recommendation_controller import get_best_recommendations
 
 # Initialize Flask app
 app = Flask(__name__)
+
+# Load environment variables
+load_dotenv(override=False)
 
 # Configure paths
 BASE_DIR = Path(__file__).resolve().parent
@@ -63,32 +68,21 @@ def get_recommendations():
     book_name = request.form.get('book_name')
     if not book_name:
         return render_template('error.html', message="Please enter a book title")
-    
-    try:
-        # Find the index of the book
-        index_list = np.where(pt.index == book_name)[0]
-        if not index_list.any():
-            return render_template('error.html', message="Book not found in our database. Please try another book.")
-        
-        index = index_list[0]
-        # Get similar items
-        similar_items = sorted(list(enumerate(similarity_scores[index])), 
-                               key=lambda x: x[1], reverse=True)[1:6]
 
-        recommendations = []
-        for i in similar_items:
-            temp_df = books[books['Book-Title'] == pt.index[i[0]]]
-            if not temp_df.empty:
-                book_data = temp_df.drop_duplicates('Book-Title').iloc[0]
-                recommendations.append({
-                    'title': book_data['Book-Title'],
-                    'author': book_data['Book-Author'],
-                    'image': book_data['Image-URL-M']
-                })
-        
-        return render_template('recommendations.html', 
-                             recommendations=recommendations,
-                             selected_book=book_name)
+    try:
+        result = get_best_recommendations(book_name, pt=pt, books=books, similarity_scores=similarity_scores)
+        source = result.get('source', 'none')
+        items = result.get('items', [])
+
+        if not items:
+            return render_template('error.html', message="No recommendations available right now. Please try another book or try again later.")
+
+        return render_template(
+            'recommendations.html',
+            recommendations=items,
+            selected_book=book_name,
+            source=source
+        )
     except Exception as e:
         print(f"Error in recommendations: {e}")
         return render_template('error.html', message="An error occurred while getting recommendations. Please try again.")
