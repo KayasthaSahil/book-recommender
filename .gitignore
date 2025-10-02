@@ -35,3 +35,7 @@ ENV/
 My_Code/
 *.log
 .DS_Store 
+
+# Secrets and environment files
+.env
+.env.*
